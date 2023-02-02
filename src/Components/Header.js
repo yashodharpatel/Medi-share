@@ -1,13 +1,18 @@
-import React from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import NGOLogin from "./NGO Authentication/NGOLogin"
+import Forgotpassword from "./Authentication/Forgotpassword";
 
 export const Header = () => {
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = () => {
+    setClicked(!clicked);
+  };
+
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      {/* <Navbar bg="light" expand="lg">
         <Container>
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -31,7 +36,36 @@ export const Header = () => {
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
+      </Navbar> */}
+      <div className="nav banner-nav" id="nav">
+      <div className="set-width-1400">
+        <div className="inside-nav">
+          <div className="d-flex align-items-center justify-content-center">
+            <div className="menu-icon" onClick={handleClick}>
+              <i className={clicked ? "fas fa-times" : "fas fa-bars"} />
+            </div>
+            <div className="logo">
+              <Link to="/" className="remove-td" style={{ color: "#048dbb" }}>
+                medi<span style={{ color: "black" }}>share</span>
+              </Link>
+            </div>
+          </div>
+          <ul
+            className={
+              clicked
+                ? "nav-links banner-navlinks"
+                : "nav-links banner-navlinks close"
+            }
+          >
+            <li>Support</li>
+            <li>Learn</li>
+            <li>Contact</li>
+          </ul>
+          <NGOLogin />
+        </div>
+        <Forgotpassword />
+      </div>
+    </div>
     </>
   );
 };

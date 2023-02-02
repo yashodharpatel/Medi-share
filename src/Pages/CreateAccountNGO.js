@@ -1,7 +1,7 @@
-import React from "react";
-import CreateaccountFormUser from "../Components/CreateaccountFormUser";
+import React from 'react'
+import CreateaccountFormNGO from '../Components/CreateaccountFormNGO';
 
-export default function Createaccount() {
+export default function CreateAccountNGO() {
   return (
     <>
       <div className="create-account">
@@ -12,7 +12,7 @@ export default function Createaccount() {
           </div>
         </div>
         <div className="create-account-form set-width-1000">
-            <CreateaccountFormUser/>
+            <CreateaccountFormNGO/>
         </div>
       </div>
     </>

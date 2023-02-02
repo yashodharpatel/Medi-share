@@ -6,10 +6,7 @@ export const Cards = () => {
   return (
     <>
     <div className='d-flex'>
-    <Card onClick={()=>{
-      localStorage.setItem("formRender", "donar");
-
-    }}>
+    <Card>
       <Card.Body>
         <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
         <Card.Title>Be a Donar</Card.Title>
@@ -22,10 +19,7 @@ export const Cards = () => {
         <Login/>
       </Card.Body>
     </Card>
-    <Card onClick={()=>{
-      localStorage.setItem("formRender", "recepient");
-
-    }}>
+    <Card>
       <Card.Body>
         <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
         <Card.Title>Order a Medicine</Card.Title>
@@ -38,10 +32,7 @@ export const Cards = () => {
         <Login/>
       </Card.Body>
     </Card>
-    <Card onClick={()=>{
-      localStorage.setItem("formRender", "volunteer");
-
-    }}>
+    <Card>
       <Card.Body>
         <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
         <Card.Title>Be a Volunteer</Card.Title>
