@@ -1,29 +1,31 @@
 import React, { useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-// import { useAuth } from "../../Contexts/Authcontext";
+import { useAuth } from "../../Contexts/Authcontext";
 
-export default function Login() {
+export default function Login(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
-  // const { login } = useAuth();
+  const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
+  console.log(props.user);
+
   async function handleSubmit(e) {
-    // e.preventDefault();
+    e.preventDefault();
 
-    // try {
-    //   setError("");
-    //   setLoading(true);
-    //   await login(emailRef.current.value, passwordRef.current.value);
-    //   history.push("/dashboard/");
-    //   document.querySelector(".modal-backdrop").remove();
-    // } catch {
-    //   setError("Failed to Sign In");
-    // }
+    try {
+      setError("");
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value);
+      history.push("/dashboard/");
+      document.querySelector(".modal-backdrop").remove();
+    } catch {
+      setError("Failed to Sign In");
+    }
 
-    // setLoading(false);
+    setLoading(false);
   }
 
   return (
@@ -101,7 +103,7 @@ export default function Login() {
                   </div>
                 </div>
                 <button
-                  // disabled={loading}
+                  disabled={loading}
                   type="submit"
                   className="btn btn-lg w-100 mt-3"
                   id="loginbutton"

@@ -4,7 +4,7 @@ import { Cards } from '../Components/Cards'
 import { Footer } from '../Components/Footer'
 import { Header } from '../Components/Header'
 
-export const Home = () => {
+export default function Home() {
   return (
     <>
     <Header/>
