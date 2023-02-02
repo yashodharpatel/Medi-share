@@ -1,21 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Profiler } from "react";
 import { Button } from "react-bootstrap";
+import { database, storage } from "../firebase";
+import { useAuth } from "../Contexts/Authcontext";
 
 export default function Donar() {
+  const { currentUser } = useAuth();
+  const currentUserId = currentUser.uid;
+  const currentUserEmail = currentUser.email;
+
   const [medicineName, setmedicineName] = useState("");
   const [tabletCount, settabletCount] = useState();
   const [expiryDate, setexpiryDate] = useState("");
   const [medicineDesc, setmedicineDesc] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+  const [ngo, setngo] = useState([]);
+  const [ngonames, setngonames] = useState([]);
 
-  const submit = (e) => {
-        e.preventDefault();
-        
-        addmedicine(medicineName, tabletCount, expiryDate, medicineDesc);
-        setmedicineName("");
-        settabletCount("");
-        setexpiryDate("");
-        setmedicineDesc("");
-    
+  useEffect(() => {
+    const ngo = database.ref("ngos");
+    ngo.once("value", (snapshot) => {
+      const info = snapshot.val();
+      setngo(info);
+    });
+  }, []);
+   
+  if(ngonames.length == 0) {
+    Object.keys(ngo).forEach(function(key) {
+      ngonames.push(ngo[key].Name)
+    });
+  }
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch(profilePicture);
+    const blob = await response.blob();
+
+    try {
+      storage
+        .ref(`/pictures/${currentUserId}/${medicineName}`)
+        .put(blob)
+        .on("state_changed", () => {
+          // Getting Download Link
+          storage
+            .ref("pictures")
+            .child(currentUserId)
+            .child(medicineName)
+            .getDownloadURL()
+            .then((url) => {
+              addmedicine(
+                medicineName,
+                tabletCount,
+                expiryDate,
+                medicineDesc,
+                url
+              );
+              setmedicineName("");
+              settabletCount("");
+              setexpiryDate("");
+              setmedicineDesc("");
+            });
+        });
+    } catch {
+      console.log("Problem occured");
+    }
   };
 
   let intiMedicine;
@@ -31,14 +79,16 @@ export default function Donar() {
     localStorage.setItem("medicines", JSON.stringify(medicines));
   }, [medicines]);
 
-  const addmedicine = (name, count, date, desc) => {
-    let sno = medicines.length === 0 ? 0 : medicines[medicines.length - 1].sno + 1;
+  const addmedicine = (name, count, date, desc, picture) => {
+    let sno =
+      medicines.length === 0 ? 0 : medicines[medicines.length - 1].sno + 1;
     const mymedicine = {
       sno: sno,
       name: name,
       count: count,
       date: date,
-      desc: desc
+      desc: desc,
+      picture: picture,
     };
     setMedicines([...medicines, mymedicine]);
   };
@@ -53,6 +103,16 @@ export default function Donar() {
         return e !== medicine;
       })
     );
+  };
+
+  const imagePreview = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setProfilePicture(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   return (
@@ -114,6 +174,18 @@ export default function Donar() {
               onChange={(e) => setmedicineDesc(e.target.value)}
             />
           </div>
+          <div className="mb-3">
+            <label htmlFor="profile-picture" className="form-label">
+              Upload Image of medicine script
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              className="form-control"
+              id="profile-picture"
+              onChange={imagePreview}
+            />
+          </div>
           <button type="submit" className="btn btn-sm btn-success">
             Submit
           </button>
@@ -145,6 +217,16 @@ export default function Donar() {
             );
           })
         )}
+
+        <div>Select a NGO to donate medicine</div>
+        <select className="p-2 mt-2 mb-3 mr-2">{
+        ngonames.map( (x,y) => 
+          <option key={y}>{x}</option> )
+      }</select>
+
+<button type="submit" className="btn m-4 btn-success">
+            Submit
+          </button>
       </div>
     </>
   );
