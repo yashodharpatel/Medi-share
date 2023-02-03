@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import NGOLogin from "./NGO Authentication/NGOLogin"
+import Login from "./Authentication/Login"
 import Forgotpassword from "./Authentication/Forgotpassword";
 
 export const Header = () => {
@@ -12,31 +13,6 @@ export const Header = () => {
 
   return (
     <>
-      {/* <Navbar bg="light" expand="lg">
-        <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar> */}
       <div className="nav banner-nav" id="nav">
       <div className="set-width-1400">
         <div className="inside-nav">
@@ -58,10 +34,13 @@ export const Header = () => {
             }
           >
             <li>Support</li>
-            <li>Learn</li>
+            <li>About</li>
             <li>Contact</li>
           </ul>
-          <NGOLogin />
+          <div>
+          {/* <Login />
+          <NGOLogin /> */}
+          </div>
         </div>
         <Forgotpassword />
       </div>

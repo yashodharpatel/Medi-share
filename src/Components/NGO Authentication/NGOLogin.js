@@ -10,8 +10,6 @@ export default function Login(props) {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  console.log(props.user);
-
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -32,9 +30,10 @@ export default function Login(props) {
     <>
       <button
         type="button"
-        className="btn login-btn"
+        className="btn login-btn btn-lg"
         data-bs-toggle="modal"
         data-bs-target="#ngologin"
+        style={{marginLeft: "25px"}}
       >
         Log In as NGO
       </button>
@@ -123,7 +122,7 @@ export default function Login(props) {
             </div>
             <div className="modal-footer">
               <div className="w-100 text-center">
-                New to Codingpeer?{" "}
+                New to Medishare?{" "}
                 <Link
                   className="text-decoration-none"
                   data-bs-toggle="modal"

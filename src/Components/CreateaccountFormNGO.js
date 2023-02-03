@@ -17,40 +17,10 @@ export default function CreateaccountFormNGO() {
   const [pin, setpin] = useState("");
   const [taxIDNo, settaxIDNo] = useState("");
   const [ngoID, setngoID] = useState("");
-  // const [collegeName, setCollegeName] = useState("");
-  // const [collegeYear, setCollegeYear] = useState("");
-  // const [workExperience, setWorkExperience] = useState("");
-  // const [specialty, setSpecialty] = useState("");
-  // const [otherSpecialty, setOtherSpecialty] = useState("");
-  // const [skills, setSkills] = useState("");
-  // const [GitHub, setGitHub] = useState("");
-  // const [stackOverflow, setStackOverflow] = useState("");
-  // const [website, setWebsite] = useState("");
-  // const [twitter, setTwitter] = useState("");
-  // const [linkedIn, setLinkedIn] = useState("");
-  // const [instagram, setInstagram] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  // const handleSpecialty = (e) => {
-  //   const { value } = e.target;
-  //   setSpecialty(value);
-  // };
-
-  // const handleIntrests = (e) => {
-  //   const target = e.target;
-  //   var value = target.value;
-
-  //   if (target.checked) {
-  //     intrests.push(value);
-  //   } else {
-  //     var index = intrests.indexOf(value);
-  //     if (index > -1) {
-  //       intrests.splice(index, 1);
-  //     }
-  //   }
-  // };
 
   const createAccount = async (e) => {
     e.preventDefault();
@@ -84,18 +54,6 @@ export default function CreateaccountFormNGO() {
                 Pin: pin,
                 TaxID: taxIDNo,
                 NGOID: ngoID,
-                // NameOfCollege: collegeName,
-                // YearOfCollege: collegeYear,
-                // WorkExperience: workExperience,
-                // Specialty: specialty === "other" ? otherSpecialty : specialty,
-                // Skills: skills,
-                // Intrests: intrests,
-                // GitHub: GitHub,
-                // StackOverflow: stackOverflow,
-                // Website: website,
-                // Twitter: twitter,
-                // LinkedIn: linkedIn,
-                // Instagram: instagram,
               };
 
               await database.ref("ngos/" + currentUserId).set(user);
@@ -224,7 +182,7 @@ export default function CreateaccountFormNGO() {
           <div className="change-display">
             <div className="mb-3">
               <label htmlFor="taxIDNo" className="form-label">
-                NGO Tax ID No <span className="required">*</span>
+                Tax ID No <span className="required">*</span>
               </label>
               <input
                 type="text"
@@ -240,7 +198,7 @@ export default function CreateaccountFormNGO() {
             </div>
             <div className="mb-3">
               <label htmlFor="ngoID" className="form-label">
-                NGO ID <span className="required">*</span>
+                NGO Darpan ID <span className="required">*</span>
               </label>
               <input
                 type="text"

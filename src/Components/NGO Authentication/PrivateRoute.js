@@ -29,12 +29,12 @@ export default function PrivateRoute({ component: Component, ...rest }) {
   if (state === "loading") {
     return (
       <div className="loading-spinner">
-        {/* <div className="loading-text">Loading...</div> */}
-        <div className="logo">
+        <div className="loading-text">Loading...</div>
+        {/* <div className="logo">
           <div style={{ color: "#048dbb", fontSize: "36px" }}>
             coding<span style={{ color: "rgb(93, 93, 93)" }}>peer</span>
           </div>
-        </div>
+        </div> */}
         <div className="spinner-grow spinner" role="status" />
       </div>
     );

@@ -19,40 +19,10 @@ export default function CreateaccountFormUser() {
   const [pin, setpin] = useState("");
   const [DOB, setDOB] = useState("");
 
-  // const [collegeName, setCollegeName] = useState("");
-  // const [collegeYear, setCollegeYear] = useState("");
-  // const [workExperience, setWorkExperience] = useState("");
-  // const [specialty, setSpecialty] = useState("");
-  // const [otherSpecialty, setOtherSpecialty] = useState("");
-  // const [skills, setSkills] = useState("");
-  // const [GitHub, setGitHub] = useState("");
-  // const [stackOverflow, setStackOverflow] = useState("");
-  // const [website, setWebsite] = useState("");
-  // const [twitter, setTwitter] = useState("");
-  // const [linkedIn, setLinkedIn] = useState("");
-  // const [instagram, setInstagram] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  // const handleSpecialty = (e) => {
-  //   const { value } = e.target;
-  //   setSpecialty(value);
-  // };
-
-  // const handleIntrests = (e) => {
-  //   const target = e.target;
-  //   var value = target.value;
-
-  //   if (target.checked) {
-  //     intrests.push(value);
-  //   } else {
-  //     var index = intrests.indexOf(value);
-  //     if (index > -1) {
-  //       intrests.splice(index, 1);
-  //     }
-  //   }
-  // };
 
   const createAccount = async (e) => {
     e.preventDefault();

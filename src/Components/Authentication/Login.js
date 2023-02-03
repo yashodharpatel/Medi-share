@@ -10,8 +10,6 @@ export default function Login(props) {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  console.log(props.user);
-
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -32,11 +30,12 @@ export default function Login(props) {
     <>
       <button
         type="button"
-        className="btn login-btn"
+        className="btn login-btn btn-lg mr-4"
         data-bs-toggle="modal"
         data-bs-target="#login"
+        style={{marginRight: "25px"}}
       >
-        Log In
+        Log In as Donar/Receiver
       </button>
 
       <div

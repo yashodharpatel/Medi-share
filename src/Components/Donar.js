@@ -1,5 +1,4 @@
-import React, { useState, useEffect, Profiler } from "react";
-import { Button } from "react-bootstrap";
+import React, { useState, useEffect, Profiler, useId } from "react";
 import { database, storage } from "../firebase";
 import { useAuth } from "../Contexts/Authcontext";
 
@@ -23,10 +22,10 @@ export default function Donar() {
       setngo(info);
     });
   }, []);
-   
-  if(ngonames.length == 0) {
-    Object.keys(ngo).forEach(function(key) {
-      ngonames.push(ngo[key].Name)
+
+  if (ngonames.length == 0) {
+    Object.keys(ngo).forEach(function (key) {
+      ngonames.push(ngo[key].Name);
     });
   }
 
@@ -79,6 +78,32 @@ export default function Donar() {
     localStorage.setItem("medicines", JSON.stringify(medicines));
   }, [medicines]);
 
+  const [userId, setUserId] = useState("");
+
+  let selectedngo = document?.getElementById("ngo-selected")?.value;
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const usersRef = database.ref("ngos");
+      usersRef.once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const user = childSnapshot.val();
+          if (user.Name === selectedngo) {
+            setUserId(childSnapshot.key);
+          }
+        });
+      });
+    };
+    fetchUserId();
+  }, []);
+
+  const submitMedicines = () => {
+    if (userId !== "" && medicines.length !== 0) {
+      database.ref("ngos/" + currentUserId).update({ medicines: medicines });
+      medicines = [];
+    }
+  };
+
   const addmedicine = (name, count, date, desc, picture) => {
     let sno =
       medicines.length === 0 ? 0 : medicines[medicines.length - 1].sno + 1;
@@ -117,9 +142,9 @@ export default function Donar() {
 
   return (
     <>
-      <div>Donate Medicine</div>
 
       <div className="container">
+      <h2>Donate Medicine</h2>
         <h3 className="text-decoration-underline my-3">Add a Medicine</h3>
         <form onSubmit={submit}>
           <div className="mb-3">
@@ -219,14 +244,23 @@ export default function Donar() {
         )}
 
         <div>Select a NGO to donate medicine</div>
-        <select className="p-2 mt-2 mb-3 mr-2">{
-        ngonames.map( (x,y) => 
-          <option key={y}>{x}</option> )
-      }</select>
+        <select className="p-2 mt-2 mb-3 mr-2" id="ngo-selected">
+          {ngonames.map((x, y) => (
+            <option value={x} key={y}>
+              {x}
+            </option>
+          ))}
+        </select>
 
-<button type="submit" className="btn m-4 btn-success">
-            Submit
-          </button>
+        <button
+          type="submit"
+          className="btn m-4 btn-success"
+          onClick={() => {
+            submitMedicines();
+          }}
+        >
+          Submit
+        </button>
       </div>
     </>
   );

@@ -39,7 +39,7 @@ export default function Signup() {
     <>
       <button
         type="button"
-        className="btn signup-btn"
+        className="btn signup-btn d-none"
         data-bs-toggle="modal"
         data-bs-target="#ngosignup"
       >
